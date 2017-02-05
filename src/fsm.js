@@ -27,7 +27,7 @@ class FSM {
         }
 
         else {
-             throw(Error)
+             throw (new Error)
         }
     }
 
