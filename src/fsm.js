@@ -4,7 +4,7 @@ class FSM {
      * @param config
      */
     constructor(config) {
-        this.state='normal';
+        this.actualstate='normal';
 
     }
 
@@ -13,14 +13,23 @@ class FSM {
      * @returns {String}
      */
     getState() {
-        return this.state;
+        return this.actualstate;
     }
 
     /**
      * Goes to specified state.
      * @param state
      */
-    changeState(state) {}
+    changeState(state) {
+        if ( state == 'hungry' || state == 'busy' || state == 'sleeping' || state =='normal'){
+            this.actualstate=state;
+            return this.state;
+        }
+
+        else {
+             throw(Error)
+        }
+    }
 
     /**
      * Changes state according to event transition rules.
