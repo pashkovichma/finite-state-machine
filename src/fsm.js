@@ -137,13 +137,13 @@ class FSM {
      * @returns {Boolean}
      */
     redo() {
-        if (this.initial==0||this.initial1==1) {
-            return false;
-        }
-        else {
+        //if (this.initial==0||this.initial1==1) {
+          //  return false;
+        //}
+        //else {
             this.actualstate=this.prevstate;
             return true;
-        }
+       // }
 
     }
 
