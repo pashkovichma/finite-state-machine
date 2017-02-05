@@ -5,6 +5,9 @@ class FSM {
      */
     constructor(config) {
         this.actualstate='normal';
+        if (config == null) {
+            throw (new Error)
+        }
 
     }
 
