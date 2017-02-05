@@ -5,6 +5,8 @@ class FSM {
      */
     constructor(config) {
         this.actualstate='normal';
+        this.prevevent='null';
+        this.initial=0;
         if (config == null) {
             throw (new Error)
         }
@@ -26,6 +28,7 @@ class FSM {
     changeState(state) {
         if ( state == 'hungry' || state == 'busy' || state == 'sleeping' || state =='normal'){
             this.actualstate=state;
+            this.initial=1;
             return this.state;
         }
 
@@ -39,6 +42,41 @@ class FSM {
      * @param event
      */
     trigger(event) {
+        if (event=='study'&&this.actualstate=='normal'|| 
+            event=='get_tired'&&this.actualstate=='busy' ||
+            event=='get_hungry'&&this.actualstate=='busy'||
+            event=='get_up'&&this.actualstate=='sleeping'||
+            event=='eat'&&this.actualstate=='hungry'||
+            event=='get_hungry'&&this.actualstate=='sleeping') {
+          if (this.actualstate=='normal'&&event=='study'){
+            this.actualstate='busy';
+            this.initial=1;
+          }
+          if (this.actualstate=='busy'&&event=='get_tired'){
+            this.actualstate='sleeping';
+            this.initial=1;
+          } 
+          if (this.actualstate=='busy'&&event=='get_hungry'){
+            this.actualstate='hungry';
+            this.initial=1;
+          }
+          if (this.actualstate=='sleeping'&&event=='get_up'){
+            this.actualstate='normal';
+            this.initial=1;
+          }
+          if (this.actualstate=='sleeping'&&event=='get_hungry'){
+            this.actualstate='hungry';
+            this.initial=1;
+          }
+          if (this.actualstate=='hungry'&&event=='eat'){
+            this.actualstate='normal';
+            this.initial=1;
+          }
+          this.prevevent=event;
+        }
+        else {
+          throw (new Error)  
+        }
 
     }
 
@@ -62,7 +100,11 @@ class FSM {
      * Returns false if undo is not available.
      * @returns {Boolean}
      */
-    undo() {}
+    undo() {
+        if (this.initial==0){
+            return false;
+        }
+    }
 
     /**
      * Goes redo to state.
