@@ -47,7 +47,7 @@ class FSM {
      * @param event
      */
     trigger(event) {
-        if (event=='study'&&this.actualstate=='normal'|| 
+         if (event=='study'&&this.actualstate=='normal'|| 
             event=='get_tired'&&this.actualstate=='busy' ||
             event=='get_hungry'&&this.actualstate=='busy'||
             event=='get_up'&&this.actualstate=='sleeping'||
@@ -110,7 +110,23 @@ class FSM {
      * @param event
      * @returns {Array}
      */
-    getStates(event) {}
+    getStates(event) {
+        if (!event){
+            return(['normal', 'busy', 'hungry', 'sleeping']);
+        }
+        if(event == 'get_hungry'){
+            return(['busy', 'sleeping']);
+        }
+        if (event == 'study') {
+            return (['normal']);
+        }
+        if (event == 'get_tired') {
+            return (['normal', 'busy']);
+        }
+        else {
+            return([]);
+        }
+    }
 
     /**
      * Goes back to previous state.
@@ -137,13 +153,13 @@ class FSM {
      * @returns {Boolean}
      */
     redo() {
-       if (this.initial==0||this.initial1==1) {
+       if (this.initial1==1) {
            return false;
         }
         else {
             this.actualstate=this.prevstate;
             return true;
-        }
+       3 }
 
     }
 
@@ -151,7 +167,8 @@ class FSM {
      * Clears transition history
      */
     clearHistory() {
-        this.initial=0
+        this.initial = 0;
+        this.initial1 = 1;
     }
 }
 
